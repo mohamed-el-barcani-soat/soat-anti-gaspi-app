@@ -1,0 +1,47 @@
+.d-flex {
+  display: flex!important;
+}
+
+.nav-menu {
+  text-align: left;
+}
+
+.app-title {
+  font-size: 2em;
+}
+
+.menu-container {
+  flex-direction: row-reverse;
+  flex-grow: 1;
+  justify-content: space-between;
+  display: block;
+}
+.menu {
+  list-style: none;
+  flex-direction: row;
+  display: flex;
+}
+
+.menu-item {
+  padding-left: 0.5em;
+}
+
+.menu::before {
+  content: "[";
+}
+
+.menu::after {
+  content: "]";
+  margin-left: 1rem;
+}
+
+.menu li::after {
+  content: "|";
+  color: #fff;
+  margin-left: 1rem;
+}
+  
+.menu li:last-child::after {
+  display: none;
+}
+  
