@@ -1,3 +1,4 @@
 {
-    "API_URL": "http://localhost:8081/api"
+    "API_URL": "http://localhost:8081/api",
+    "APP_URL": "http://localhost:3001"
 }
