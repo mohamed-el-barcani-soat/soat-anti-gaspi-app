@@ -1,10 +1,16 @@
+export type Email = {
+  value: string;
+};
+export type User = {
+  email: Email;
+};
+
 export default interface Offer {
-    id: string,
-    companyName: string;
-    title: string;
-    description: string;
-    email: string;
-    address: string;
-    availabilityDate: Date,
-    expirationDate: Date
+  naturalId: string;
+  title: string;
+  description: string;
+  user: User;
+  address: string;
+  availabilityDate: Date;
+  expirationDate: Date;
 }

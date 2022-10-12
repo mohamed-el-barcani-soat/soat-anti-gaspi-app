@@ -44,6 +44,10 @@
   "devDependencies": {
     "@types/node": "^16.11.45",
     "cypress": "^10.9.0",
-    "msw": "^0.47.4"
+    "msw": "^0.47.4",
+    "whatwg-fetch": "^3.6.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

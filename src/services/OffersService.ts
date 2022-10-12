@@ -3,17 +3,16 @@ import { CreateOfferRequest, Offers } from "../services/models";
 
 interface OffersServiceProps {
   createOffer: (createOfferRequest: CreateOfferRequest) => Promise<string>;
-  getAllOffers: () => Promise<Offers>
+  getAllOffers: () => Promise<Offers>;
 }
 
 const OffersService: OffersServiceProps = {
-
   createOffer: async (createOfferRequest) => {
-    const response = await fetch(`${config.API_URL}/offers`, { 
-      method: 'post',
+    const response = await fetch(`${config.API_URL}/offers`, {
+      method: "post",
       body: JSON.stringify(createOfferRequest),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -26,16 +25,17 @@ const OffersService: OffersServiceProps = {
   },
 
   getAllOffers: async () => {
-    const response = await fetch(`${config.API_URL}/offers`, {
-      method: 'get'
-    })
+    console.log("before fetch");
+    const response = await fetch(`${config.API_URL}/offers`);
+
+    console.log("after fetch");
 
     if (response.ok) {
-      await response.json();
+      return await response.json();
     }
 
-    throw new Error("Erreur pour obtenir la liste des annonces")
-  }
-}
+    throw new Error("Erreur pour obtenir la liste des annonces");
+  },
+};
 
 export default OffersService;

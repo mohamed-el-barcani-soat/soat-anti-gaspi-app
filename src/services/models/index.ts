@@ -1,5 +1,5 @@
-import CreateOfferRequest from './CreateOfferRequest';
-import Offer from './Offer';
-import Offers from './Offers';
+import CreateOfferRequest from "./CreateOfferRequest";
+import Offer from "./Offer";
+import OffersResponse from "./OffersResponse";
 
-export type { CreateOfferRequest, Offer, Offers };
+export type { CreateOfferRequest, Offer, OffersResponse as Offers };
