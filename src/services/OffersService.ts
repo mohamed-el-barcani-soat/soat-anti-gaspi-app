@@ -1,8 +1,9 @@
 import config from "../config";
-import { CreateOfferRequest } from "../services/models";
+import { CreateOfferRequest, Offers } from "../services/models";
 
 interface OffersServiceProps {
   createOffer: (createOfferRequest: CreateOfferRequest) => Promise<string>;
+  getAllOffers: () => Promise<Offers>
 }
 
 const OffersService: OffersServiceProps = {
@@ -23,6 +24,18 @@ const OffersService: OffersServiceProps = {
 
     throw new Error("Erreur lors de la création d'annonce");
   },
+
+  getAllOffers: async () => {
+    const response = await fetch(`${config.API_URL}/offers`, {
+      method: 'get'
+    })
+
+    if (response.ok) {
+      await response.json();
+    }
+
+    throw new Error("Erreur pour obtenir la liste des annonces")
+  }
 }
 
 export default OffersService;
