@@ -1,9 +1,10 @@
 import config from "../config";
-import { CreateOfferRequest, Offers } from "../services/models";
+import { Offers } from "../pages/offers/models";
+import { CreateOfferRequest, GetAllOffersRequest as GetAllOffersRequestParams } from "../services/models";
 
 interface OffersServiceProps {
   createOffer: (createOfferRequest: CreateOfferRequest) => Promise<string>;
-  getAllOffers: () => Promise<Offers>;
+  getAllOffers: (getAllOffersRequest: GetAllOffersRequestParams) => Promise<Offers>;
 }
 
 const OffersService: OffersServiceProps = {
@@ -24,17 +25,38 @@ const OffersService: OffersServiceProps = {
     throw new Error("Erreur lors de la création d'annonce");
   },
 
-  getAllOffers: async () => {
-    console.log("before fetch");
-    const response = await fetch(`${config.API_URL}/offers`);
+  getAllOffers: async (requestParams: GetAllOffersRequestParams): Promise<Offers> => {
+    // TODO : send real request after api'll be ready to get all offers
 
-    console.log("after fetch");
-
-    if (response.ok) {
-      return await response.json();
-    }
-
-    throw new Error("Erreur pour obtenir la liste des annonces");
+    return Promise.resolve({
+      content: [
+        {
+          title: "offer title 1",
+          description: "offer title description",
+          id: "id1",
+          user: {
+            email: "user1@gmail.com"
+          },
+        },
+        {
+          title: "offer title 2",
+          description: "offer title description",
+          id: "id2",
+          user: {
+            email: "user2@gmail.com"
+          },
+        },
+        {
+          title: "offer title 3",
+          description: "offer title description",
+          id: "id3",
+          user: {
+            email: "user3@gmail.com"
+          }
+        }
+      ],
+      total: 3
+    })
   },
 };
 
