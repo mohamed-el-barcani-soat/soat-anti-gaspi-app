@@ -1,4 +1,4 @@
-import { getByText, render, screen } from "@testing-library/react"
+import { getByText, screen } from "@testing-library/react"
 import OfferList from "."
 import { Offer } from "../../../services/models/offer"
 import { renderWithRouteProvider } from "../../helper/test/renderWithRouteProvider";
@@ -34,13 +34,6 @@ describe("OfferList", () => {
     
             const concernedOffer = offerItem[0];
             getByText(concernedOffer, offer.title);
-            // offer.availabilityDate && 
-            // getByText(concernedOffer, offer.availabilityDate?.toLocaleDateString());
-            // offer.expirationDate && 
-            // getByText(concernedOffer, offer.expirationDate?.toLocaleDateString());
-            // getByText(concernedOffer, offer.address.country);
-            // getByText(concernedOffer, offer.address.city);
-            // getByText(concernedOffer, offer.address.zipcode);  
         });
 
         it("should not show no offer information", () => {

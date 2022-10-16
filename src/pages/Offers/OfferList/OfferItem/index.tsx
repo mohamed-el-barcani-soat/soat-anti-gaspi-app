@@ -11,9 +11,9 @@ const OfferItem = ({ offer }: OfferItemProps) => {
     const navigate = useNavigate();
 
     const navigateToOfferPage = (offerId: string) => {
-        navigate(`/offer/${offerId}`)
+        navigate(`/contact/${offerId}`)
     }
-    
+
     return <>
         <Card key={offer.id} data-testid="offer-item">
             <CardHeader>{offer.title}</CardHeader>
@@ -27,12 +27,16 @@ const OfferItem = ({ offer }: OfferItemProps) => {
                 </div>
 
                 <div className="availability-date-section">
-                    <div>Disponible le : </div>
-                    <div>{offer.availabilityDate?.toLocaleDateString()}</div>
+                    <div>
+                        Disponible le 
+                        <span> {offer.availabilityDate?.toLocaleDateString()} </span>
+                         au 
+                        <span> {offer.expirationDate?.toLocaleDateString()} </span>
+                    </div>
                 </div>
 
                 <div>
-                    <Button onClick={() => navigateToOfferPage(offer.id)}>Voir l'annonce</Button>
+                    <Button onClick={() => navigateToOfferPage(offer.id)}>Contacter</Button>
                 </div>
             </CardBody>
         </Card>
