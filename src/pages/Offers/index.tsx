@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, CardBody, CardHeader } from "../../components";
 import OffersService from "../../services/OffersService";
 import { Offer } from "../../services/models/offer/Offer";
+import OfferList from "./OfferList";
 
 const Offers = () => {
   const [offers, setOffers] = useState<Offer[]>([]);
@@ -22,17 +23,7 @@ const Offers = () => {
   }, []);
   return (
     <div>
-      {offers.map((offer) => (
-        <Card key={offer.id}>
-          <CardHeader>{offer.title}</CardHeader>
-          <CardBody style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-            {offer.description}
-            <div>
-              <Button>Voir l'annonce</Button>
-            </div>
-          </CardBody>
-        </Card>
-      ))}
+      <OfferList offers={offers} />
     </div>
   );
 };
