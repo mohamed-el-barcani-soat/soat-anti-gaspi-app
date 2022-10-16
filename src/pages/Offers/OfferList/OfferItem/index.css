@@ -1,0 +1,11 @@
+.offer-item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.availability-date-section {
+    display: flex;
+
+    justify-content: center;
+}
