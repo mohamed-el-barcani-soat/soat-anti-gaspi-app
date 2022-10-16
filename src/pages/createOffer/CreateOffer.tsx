@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, CardBody, CardHeader, Error, Input, Loading } from "../../components";
-import { CreateOfferRequest } from "../../services/models";
+import { CreateOfferRequest } from "../../services/models/offer";
 import OffersService from "../../services/OffersService";
 import './CreateOffer.css';
 

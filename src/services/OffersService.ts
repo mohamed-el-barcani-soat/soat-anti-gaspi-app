@@ -1,6 +1,5 @@
 import config from "../config";
-import { Offers } from "../pages/offers/models";
-import { CreateOfferRequest, GetAllOffersRequest as GetAllOffersRequestParams } from "../services/models";
+import { CreateOfferRequest, GetAllOffersRequest as GetAllOffersRequestParams, Offers } from "./models/offer";
 
 interface OffersServiceProps {
   createOffer: (createOfferRequest: CreateOfferRequest) => Promise<string>;
@@ -37,21 +36,48 @@ const OffersService: OffersServiceProps = {
           user: {
             email: "user1@gmail.com"
           },
+          availabilityDate: new Date(),
+          expirationDate: new Date(),
+          address: {
+            city: "Paris",
+            country: "France",
+            street: "rue Charles de Gaulle",
+            streetNumber: 1,
+            zipcode: "75001"
+          }
         },
         {
-          title: "offer title 2",
-          description: "offer title description",
+          title: "Pizza de papa",
+          description: "pizza de papa",
           id: "id2",
           user: {
-            email: "user2@gmail.com"
+            email: "pizza@gmail.com"
           },
+          availabilityDate: new Date(),
+          expirationDate: new Date(),
+          address: {
+            city: "Lyon",
+            country: "France",
+            street: "Rue Tupin",
+            streetNumber: 34,
+            zipcode: "69002"
+          }
         },
         {
-          title: "offer title 3",
-          description: "offer title description",
+          title: "Boat",
+          description: "a very nice boat and vintage",
           id: "id3",
           user: {
             email: "user3@gmail.com"
+          },
+          availabilityDate: new Date(2022, 12, 15),
+          expirationDate: new Date(2022, 12, 25),
+          address: {
+            city: "Yokohama",
+            country: "Japon",
+            street: "street Yokohama port",
+            streetNumber: 50,
+            zipcode: "220-0001"
           }
         }
       ],

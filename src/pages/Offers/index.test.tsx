@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import Offers from "./OffersList";
+import Offers from ".";
 import { render, screen, waitFor } from "@testing-library/react";
 import config from "../../config";
 

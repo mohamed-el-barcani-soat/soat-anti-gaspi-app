@@ -2,7 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateOffer from "./pages/createOffer/CreateOffer";
 import { ErrorBoundary, Layout } from "./components";
-import OffersList from "./pages/offers/OffersList";
+import OffersList from "./pages/Offers";
 
 
 function App() {
