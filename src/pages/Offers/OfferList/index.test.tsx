@@ -1,6 +1,7 @@
-import { findAllByTestId, getByText, render, screen } from "@testing-library/react"
+import { getByText, render, screen } from "@testing-library/react"
 import OfferList from "."
 import { Offer } from "../../../services/models/offer"
+import { renderWithRouteProvider } from "../../helper/test/renderWithRouteProvider";
 
 describe("OfferList", () => {
     const noOfferInformationTextRegex = /Pas d'annonce.+/;
@@ -27,7 +28,7 @@ describe("OfferList", () => {
             offers: [offer]
         }
         it("should render 1 offer", () => {
-            render(<OfferList offers={props.offers}/>)
+            renderWithRouteProvider(<OfferList offers={props.offers}/>)
             const offerItem = screen.getAllByTestId('offer-item');
             expect(offerItem.length).toBe(1);
     
@@ -43,14 +44,14 @@ describe("OfferList", () => {
         });
 
         it("should not show no offer information", () => {
-            render(<OfferList offers={props.offers}/>)
+            renderWithRouteProvider(<OfferList offers={props.offers}/>)
 
             expect(screen.queryByText(noOfferInformationTextRegex)).not.toBeInTheDocument();
         })
     })
     
     it("when properties doesn't contain offer should inform no offer information", () => {
-        render(<OfferList offers={[]} />)
+        renderWithRouteProvider(<OfferList offers={[]} />)
 
         const offerItem = screen.queryAllByTestId('offer-item');
         expect(offerItem.length).toBe(0);

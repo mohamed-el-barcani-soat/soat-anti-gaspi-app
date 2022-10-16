@@ -11,6 +11,8 @@ const Offers = () => {
   const [sortBy, setSortBy] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     OffersService.getAllOffers({
       pageNumber,
@@ -19,8 +21,14 @@ const Offers = () => {
       sortOrder
     }).then((response) => {
       setOffers(response.content);
+      setIsLoading(false);
     });
-  }, []);
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <div>Chargement en cours...</div>
+  }
+
   return (
     <div>
       <OfferList offers={offers} />
