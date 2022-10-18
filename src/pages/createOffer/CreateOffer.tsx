@@ -1,110 +1,118 @@
 import React, { useState } from "react";
-import { Button, Card, CardBody, CardHeader, Error, Input, Loading } from "../../components";
-import { CreateOfferRequest } from "../../services/models/offer";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Loading,
+} from "../../components";
+import "./CreateOffer.css";
+import { CreateOfferInputs } from "./CreateOfferInputs";
 import OffersService from "../../services/OffersService";
-import './CreateOffer.css';
-
-interface CreateOfferState {
-  isLoading: boolean;
-  hasError: boolean;
-}
-
-const defaultCreateOfferRequest: CreateOfferRequest = {
-  title: "",
-  description: "",
-  email: "",
-  companyName: "",
-  address: "",
-  availability: undefined,
-  expiration: undefined,
-};
+import { CreateOfferRequest } from "../../services/models/offer";
+import createOfferSchema from "./createOfferSchema";
 
 const CreateOffer: React.FC = () => {
-  const [{ isLoading, hasError }, setState] = useState<CreateOfferState>({
-    isLoading: false,
-    hasError: false
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateOfferInputs>({
+    resolver: yupResolver(createOfferSchema),
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [offerId, setOfferId] = useState<string>();
+
+  const submitCreateOffer = handleSubmit(async (data) => {
+    if (data.address.streetNumber) {
+      const request: CreateOfferRequest = {
+        ...data,
+        address: {
+          ...data.address,
+          streetNumber: data.address.streetNumber,
+        },
+      };
+      const id = await OffersService.createOffer(request);
+      setOfferId(id);
+    }
   });
 
-  const [ offerId, setOfferId ] = useState<string>("");
-
-  const [createOfferRequest, setCreateOfferRequest] =
-    useState<CreateOfferRequest>(defaultCreateOfferRequest);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCreateOfferRequest({
-      ...createOfferRequest,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitCreateOffer();
-  };
-
-  const submitCreateOffer = async () => {
-    setState({ isLoading: true, hasError: false });
-    try {
-      const id = await OffersService.createOffer(createOfferRequest);
-      setOfferId(id);
-      setCreateOfferRequest(defaultCreateOfferRequest);
-    } catch (e: unknown) {
-      setState({ isLoading: false, hasError: true });
-    }
-    setState({ isLoading: false, hasError: false });
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submitCreateOffer}>
       <Card>
         <CardHeader>Créer une annonce</CardHeader>
         <CardBody>
           <div className="form-content">
-            <Input 
-              name="title" 
+            <Input
               label="Titre :"
-              required
-              value={createOfferRequest.title}
-              onChange={handleChange} />
-            <Input 
-              name="description" 
+              {...register("title")}
+              error={errors.title?.message}
+            />
+            <Input
               label="Description :"
-              required
-              value={createOfferRequest.description}
-              onChange={handleChange} />
-            <Input 
-              name="email"
+              {...register("description")}
+              error={errors.description?.message}
+            />
+            <Input
+              label="Username :"
+              {...register("user.username")}
+              error={errors.user?.username?.message}
+            />
+            <Input
               type="email"
               label="Email :"
-              required
-              value={createOfferRequest.email}
-              onChange={handleChange} />
-            <Input 
-              name="companyName"
-              label="Entreprise :"
-              required
-              value={createOfferRequest.companyName}
-              onChange={handleChange} />
-            <Input 
-              name="address"
-              label="Adresse :"
-              required
-              value={createOfferRequest.address}
-              onChange={handleChange} />
-            <Input 
-              name="availability"
+              {...register("user.email")}
+              error={errors.user?.email?.message}
+            />
+            <Input
+              label="Ville :"
+              {...register("address.city")}
+              error={errors.address?.city?.message}
+            />
+            <Input
+              label="Pays :"
+              {...register("address.country")}
+              error={errors.address?.country?.message}
+            />
+            <Input
+              label="Rue :"
+              {...register("address.street")}
+              error={errors.address?.street?.message}
+            />
+            <Input
+              label="Numéro de rue :"
+              {...register("address.streetNumber")}
+              error={errors.address?.streetNumber?.message}
+            />
+            <Input
+              label="Indicateur :"
+              {...register("address.streetNumberIndicator")}
+              error={errors.address?.streetNumberIndicator?.message}
+            />
+            <Input
+              label="Code postal :"
+              {...register("address.zipcode")}
+              error={errors.address?.zipcode?.message}
+            />
+            <Input
               type="date"
               label="Disponibilité :"
-              onChange={handleChange} />
-            <Input 
-              name="expiration"
+              {...register("availability")}
+              error={errors.availability?.message}
+            />
+            <Input
               type="date"
               label="Expiration :"
-              onChange={handleChange} />
+              {...register("expiration")}
+              error={errors.expiration?.message}
+            />
           </div>
-          {isLoading && <Loading/>}
+          {isLoading && <Loading />}
           {!isLoading && <Button type="submit">Créer</Button>}
-          {hasError && <Error refresh={() => submitCreateOffer()}/>}
+          {/* {hasError && <Error refresh={() => submitCreateOffer()} />} */}
           {offerId && <p>L'annonce {offerId} a bien été créée !</p>}
         </CardBody>
       </Card>
