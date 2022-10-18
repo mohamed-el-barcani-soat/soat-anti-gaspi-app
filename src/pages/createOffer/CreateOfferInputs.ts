@@ -1,5 +1,5 @@
-type Address = {
-  streetNumber: number;
+type AddressInputs = {
+  streetNumber?: number;
   streetNumberIndicator?: number;
   country: string;
   street: string;
@@ -7,15 +7,16 @@ type Address = {
   zipcode: string;
 };
 
-type User = {
+type UserInputs = {
   username: string;
   email: string;
 };
-export default interface CreateOfferRequest {
-  user: User;
+
+export type CreateOfferInputs = {
+  user: UserInputs;
   title: string;
   description: string;
-  address: Address;
+  address: AddressInputs;
   availability?: Date;
   expiration?: Date;
-}
+};
