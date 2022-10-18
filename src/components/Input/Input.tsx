@@ -3,11 +3,12 @@ import "./Input.css";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  error?: string;
 }
 
 const Input = React.forwardRef(
   (
-    { label, className, ...props }: InputProps,
+    { label, className, error, ...props }: InputProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     return (
@@ -15,6 +16,7 @@ const Input = React.forwardRef(
         {label}
         <br />
         <input className={`input ${className}`} ref={ref} {...props} />
+        {error && <div className="error-message">{error}</div>}
       </label>
     );
   }
