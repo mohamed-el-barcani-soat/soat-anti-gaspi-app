@@ -1,4 +1,3 @@
-import { data } from "cypress/types/jquery";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -6,12 +5,9 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Error,
   Input,
   Loading,
 } from "../../components";
-import { CreateOfferRequest } from "../../services/models/offer";
-import OffersService from "../../services/OffersService";
 import "./CreateOffer.css";
 import { CreateOfferInputs } from "./CreateOfferInputs";
 
@@ -20,30 +16,13 @@ interface CreateOfferState {
   hasError: boolean;
 }
 
-const defaultCreateOfferInputs: CreateOfferInputs = {
-  title: "",
-  description: "",
-  user: {
-    username: "",
-    email: "",
-  },
-  address: {
-    streetNumber: undefined,
-    street: "",
-    country: "",
-    city: "",
-    zipcode: "",
-  },
-  availability: undefined,
-  expiration: undefined,
-};
-
 const CreateOffer: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateOfferInputs>();
+  const [isLoading, setIsLoading] = useState(false);
 
   // const [{ isLoading, hasError }, setState] = useState<CreateOfferState>({
   //   isLoading: false,
@@ -80,7 +59,6 @@ const CreateOffer: React.FC = () => {
   // };
 
   const submitCreateOffer = handleSubmit(async (data) => {
-    console.log(data);
     if (data.address.streetNumber) {
       // const request: CreateOfferRequest = {
       //   ...data,
@@ -137,10 +115,9 @@ const CreateOffer: React.FC = () => {
               {...register("expiration")}
             />
           </div>
-          <Button type="submit">Créer</Button>
-          {/* {isLoading && <Loading />}
+          {isLoading && <Loading />}
           {!isLoading && <Button type="submit">Créer</Button>}
-          {hasError && <Error refresh={() => submitCreateOffer()} />}
+          {/* {hasError && <Error refresh={() => submitCreateOffer()} />}
           {offerId && <p>L'annonce {offerId} a bien été créée !</p>} */}
         </CardBody>
       </Card>

@@ -5,12 +5,19 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-const Input = ({ label, className, ...props }: InputProps) => (
-  <label className="label">
-    {label}
-    <br />
-    <input className={`input ${className}`} {...props} />
-  </label>
+const Input = React.forwardRef(
+  (
+    { label, className, ...props }: InputProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    return (
+      <label className="label">
+        {label}
+        <br />
+        <input className={`input ${className}`} ref={ref} {...props} />
+      </label>
+    );
+  }
 );
 
 export default Input;
