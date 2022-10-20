@@ -32,8 +32,9 @@ const CreateOffer: React.FC = () => {
         ...data,
         address: {
           ...data.address,
-          streetNumber: data.address.streetNumber,
         },
+        availabilityDate: data.availability,
+        expirationDate: data.expiration,
       };
       const id = await OffersService.createOffer(request);
       setOfferId(id);

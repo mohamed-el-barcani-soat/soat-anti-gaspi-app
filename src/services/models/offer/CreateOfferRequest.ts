@@ -1,6 +1,4 @@
 type Address = {
-  streetNumber: number;
-  streetNumberIndicator?: number;
   country: string;
   street: string;
   city: string;
@@ -16,6 +14,6 @@ export default interface CreateOfferRequest {
   title: string;
   description: string;
   address: Address;
-  availability?: Date;
-  expiration?: Date;
+  availabilityDate?: Date;
+  expirationDate?: Date;
 }
